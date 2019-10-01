@@ -1,5 +1,7 @@
 package br.com.vivian.apiMongoCondominiopg.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
@@ -11,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.vivian.apiMongoCondominiopg.domain.Condominio;
+import br.com.vivian.apiMongoCondominiopg.repository.CondominioRepository;
+
 @RestController
 @RequestMapping(value = "/condominiopg")
 public class CondominioController {
@@ -20,31 +25,33 @@ public class CondominioController {
 	private CondominioRepository condominioRepository;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public List<Condominios> getCondominios() {
-		return repository.findAll();
+	public List<Condominio> getCondominio() {
+		return condominioRepository.findAll();
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Condominios getCondominiosById(@PathVariable("id")ObjectId) {
-		
-		return repository.findBy_id(id);
+	@RequestMapping(value = "/{_id}", method = RequestMethod.GET)
+	public Condominio getCondominiosById(@PathVariable("_id") ObjectId _id) {
+
+		return condominioRepository.findBy_id(_id);
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public Condominios criarCadastro(@Valid @RequestBody Condominios condominios) {
+	public Condominio criarCadastro(@Valid @RequestBody Condominio condominio) {
 
-		Condominios.set_id(ObjectId.get());
-		repository.save(condominios);
+		condominio.set_id(ObjectId.get());
+		condominioRepository.save(condominio);
 		return condominio;
 	}
 
-	@RequestMapping(value = "/{id}", methor = RequestMethod.PUT)
-	public void editarCondominiosById(@PathVariable("id")ObjectId id,@Valid @RequestBody Condominios condominios) {
-	condominios.set_id(id);
-	repository.save(condominio);
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public void editarCondominiosById(@PathVariable("id") ObjectId id, @Valid @RequestBody Condominio condominio) {
+		condominio.set_id(id);
+		condominioRepository.save(condominio);
 
 	}
 
-@RequestMapping(value = "/{id}", method =RequestMethod.DELETE)
-public void delete(repository.find_id(id));
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable ObjectId _id) {
+		condominioRepository.delete(condominioRepository.findBy_id(_id));
+	}
 }

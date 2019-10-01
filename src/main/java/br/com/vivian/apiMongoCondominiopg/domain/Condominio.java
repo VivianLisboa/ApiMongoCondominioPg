@@ -6,9 +6,11 @@ import javax.validation.constraints.NotNull;
 import org.bson.types.ObjectId;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "Condominio")
 public class Condominio {
-	
+
 	@Id
 	private ObjectId _id;
 
@@ -22,13 +24,13 @@ public class Condominio {
 	private String cnpj;
 
 	private String contato;
-	
+
 	public Condominio() {
-		
+
 	}
 
-	public Condominio(ObjectId _id, String nome,String cnpj,	String contato) {
-		
+	public Condominio(ObjectId _id, String nome, String cnpj, String contato) {
+
 		this._id = _id;
 		this.nome = nome;
 		this.cnpj = cnpj;
@@ -66,7 +68,5 @@ public class Condominio {
 	public void setContato(String contato) {
 		this.contato = contato;
 	}
-	
-	
 
 }
